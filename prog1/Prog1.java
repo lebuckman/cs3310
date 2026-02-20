@@ -8,15 +8,13 @@ package prog1;
 /* Prog1 class: Main driver for graph component               */
 /*              and cycle detection using DFS                 */
 /**************************************************************/
-
 public class Prog1 {
 
 	/**************************************************************/
 	/* Method: main                                               */
-	/* Purpose: Reads graphs from file and analyzes               */
+	/* Purpose: Program entry point + access file from CLI        */
 	/* Parameters:                                                */
 	/*   String[] args: command line arguments (expects filename) */
-	/* Returns: None                                              */
 	/**************************************************************/
 	public static void main(String[] args) {
 		// Check if filename was provided
@@ -26,6 +24,8 @@ public class Prog1 {
 		}
 
 		String filename = args[0];
-		System.out.println("Filename: " + filename);
+
+		GraphFileReader reader = new GraphFileReader(filename);
+		reader.processGraphs();
 	}
 }
