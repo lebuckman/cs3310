@@ -1,6 +1,7 @@
 package prog1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -99,6 +100,9 @@ public class Graph {
 				System.out.println();
 			}
 		}
+
+		// After finding all components, display results
+		printComponents();
 	}
 
 	/**************************************************************/
@@ -125,5 +129,40 @@ public class Graph {
 				dfs(neighbor, vertex, component);
 			}
 		}
+	}
+
+	/**************************************************************/
+	/* Method: printComponents                                    */
+	/* Purpose: Display the connected components                  */
+	/**************************************************************/
+	private void printComponents() {
+		// Print description based on number of components
+		if (components.size() == 1) {
+			System.out.print("1 connected component: ");
+		} else {
+			System.out.print(components.size() + " connected components: ");
+		}
+
+		// Print each component
+		for (Set<Integer> component : components) {
+			System.out.print("{");
+
+			// Use a sorted list for consistent output
+			List<Integer> sortedComponent = new ArrayList<>(component);
+			Collections.sort(sortedComponent);
+
+			// Print vertices separated by spaces
+			for (int i = 0; i < sortedComponent.size(); i++) {
+				System.out.print(sortedComponent.get(i));
+
+				if (i < sortedComponent.size() - 1) {
+					System.out.print(" ");
+				}
+			}
+
+			System.out.print("} ");
+		}
+
+		System.out.println();
 	}
 }
