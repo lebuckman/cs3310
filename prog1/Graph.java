@@ -28,6 +28,9 @@ public class Graph {
 	// Track visited vertices for DFS
 	private Set<Integer> visited;
 
+	// List of all connected components
+	private List<Set<Integer>> components;
+
 	/**************************************************************/
 	/* Constructor: Graph                                         */
 	/* Purpose: Initialize empty graph with numVertices vertices  */
@@ -78,15 +81,21 @@ public class Graph {
 	/* Purpose: Find connected components and detect cycles       */
 	/**************************************************************/
 	public void findComponentsAndCycles() {
-		// Initialize visited set
+		// Initialize visited set and components list
 		visited = new HashSet<>();
+		components = new ArrayList<>();
 
 		// Iterate through all vertices to find unvisited ones and start DFS
 		for (int vertex = 1; vertex <= numVertices; vertex++) {
 			// If vertex is not visited, it is the start of a new component
 			if (!visited.contains(vertex)) {
+				// Create a new component set and add current vertex to it
+				Set<Integer> currentComponent = new HashSet<>();
+				components.add(currentComponent);
+
+				// Start DFS from this vertex to find all vertices in the same component
 				System.out.print("\tStarting DFS from vertex " + vertex + ": ");
-				dfs(vertex, -1);
+				dfs(vertex, -1, currentComponent);
 				System.out.println();
 			}
 		}
@@ -98,10 +107,12 @@ public class Graph {
 	/* Parameters:                                                */
 	/*   int vertex: current vertex being visited                 */
 	/*   int parent: vertex we came from (-1 if root)             */
+	/*   Set<Integer> component: current component being built    */
 	/**************************************************************/
-	private void dfs(int vertex, int parent) {
-		// Mark this vertex as visited
+	private void dfs(int vertex, int parent, Set<Integer> component) {
+		// Mark this vertex as visited and add it to the current component
 		visited.add(vertex);
+		component.add(vertex);
 		System.out.print(vertex + " ");
 
 		// Get adjacent vertices of current vertex
@@ -111,7 +122,7 @@ public class Graph {
 		for (int neighbor : neighbors) {
 			// If neighbor is not visited, continue DFS recursively
 			if (!visited.contains(neighbor)) {
-				dfs(neighbor, vertex);
+				dfs(neighbor, vertex, component);
 			}
 		}
 	}
