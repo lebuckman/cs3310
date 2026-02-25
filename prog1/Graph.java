@@ -2,8 +2,10 @@ package prog1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**************************************************************/
 /* Liam Buckman                                               */
@@ -22,6 +24,9 @@ public class Graph {
 
 	// Adjacency list: maps vertex to list of adjacent vertices
 	private Map<Integer, List<Integer>> adjacencyList;
+
+	// Track visited vertices for DFS
+	private Set<Integer> visited;
 
 	/**************************************************************/
 	/* Constructor: Graph                                         */
@@ -68,4 +73,46 @@ public class Graph {
 		return numEdges;
 	}
 
+	/**************************************************************/
+	/* Method: findComponentsAndCycles                            */
+	/* Purpose: Find connected components and detect cycles       */
+	/**************************************************************/
+	public void findComponentsAndCycles() {
+		// Initialize visited set
+		visited = new HashSet<>();
+
+		// Iterate through all vertices to find unvisited ones and start DFS
+		for (int vertex = 1; vertex <= numVertices; vertex++) {
+			// If vertex is not visited, it is the start of a new component
+			if (!visited.contains(vertex)) {
+				System.out.print("\tStarting DFS from vertex " + vertex + ": ");
+				dfs(vertex, -1);
+				System.out.println();
+			}
+		}
+	}
+
+	/**************************************************************/
+	/* Method: dfs                                                */
+	/* Purpose: Recursive depth-first search traversal            */
+	/* Parameters:                                                */
+	/*   int vertex: current vertex being visited                 */
+	/*   int parent: vertex we came from (-1 if root)             */
+	/**************************************************************/
+	private void dfs(int vertex, int parent) {
+		// Mark this vertex as visited
+		visited.add(vertex);
+		System.out.print(vertex + " ");
+
+		// Get adjacent vertices of current vertex
+		List<Integer> neighbors = adjacencyList.getOrDefault(vertex, new ArrayList<>());
+
+		// Visit each neighbor
+		for (int neighbor : neighbors) {
+			// If neighbor is not visited, continue DFS recursively
+			if (!visited.contains(neighbor)) {
+				dfs(neighbor, vertex);
+			}
+		}
+	}
 }
