@@ -56,6 +56,9 @@ public class GraphFileReader {
 				System.out.println("Edges: " + graph.getNumEdges());
 				System.out.println();
 
+				graph.findComponentsAndCycles();
+				System.out.println();
+
 				// Increment graph number for next graph
 				graphNumber++;
 			}
