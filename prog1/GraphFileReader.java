@@ -28,7 +28,8 @@ public class GraphFileReader {
 
 	/**************************************************************/
 	/* Method: processGraphs                                      */
-	/* Purpose: Read file and process each graph line             */
+	/* Purpose: Read input file line by line, parse each graph,   */
+	/*          and execute DFS to find components and cycles     */
 	/**************************************************************/
 	public void processGraphs() {
 		try {
@@ -50,14 +51,11 @@ public class GraphFileReader {
 				// Parse line into Graph object
 				Graph graph = parseLine(line);
 
-				// Testing
+				// Display graph number
 				System.out.println("Graph" + graphNumber + ":");
-				System.out.println("Vertices: " + graph.getNumVertices());
-				System.out.println("Edges: " + graph.getNumEdges());
-				System.out.println();
 
+				// Find components and cycles, then print results
 				graph.findComponentsAndCycles();
-				System.out.println();
 
 				// Increment graph number for next graph
 				graphNumber++;
@@ -68,7 +66,7 @@ public class GraphFileReader {
 		} catch (FileNotFoundException e) {
 			// Handle case where file is not found
 			System.out.println("FileNotFoundException: " + e.getMessage());
-		} 
+		}
 	}
 
 	/**************************************************************/
