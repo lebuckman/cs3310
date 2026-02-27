@@ -59,7 +59,7 @@ public class Graph {
 		if (!neighbors1.contains(vertex2)) {
 			neighbors1.add(vertex2);
 		}
-		
+
 		// Add vertex1 to vertex2's neighbor adjacency list (undirected graph)
 		adjacencyList.putIfAbsent(vertex2, new ArrayList<>());
 		List<Integer> neighbors2 = adjacencyList.get(vertex2);
@@ -86,7 +86,8 @@ public class Graph {
 
 	/**************************************************************/
 	/* Method: findComponentsAndCycles                            */
-	/* Purpose: Find connected components and detect cycles       */
+	/* Purpose: Execute DFS on all vertices to find               */
+	/*          connected components and cycles                   */
 	/**************************************************************/
 	public void findComponentsAndCycles() {
 		// Initialize visited set and components list
@@ -107,9 +108,7 @@ public class Graph {
 				components.add(currentComponent);
 
 				// Start DFS from this vertex to find all vertices in the same component
-				System.out.print("\tStarting DFS from vertex " + vertex + ": ");
 				dfs(vertex, -1, currentComponent);
-				System.out.println();
 			}
 		}
 
@@ -130,7 +129,6 @@ public class Graph {
 		visited.add(vertex);
 		component.add(vertex);
 		parent.put(vertex, parentVertex);
-		System.out.print(vertex + " ");
 
 		// Get adjacent vertices of current vertex
 		List<Integer> neighbors = adjacencyList.getOrDefault(vertex, new ArrayList<>());
@@ -138,10 +136,10 @@ public class Graph {
 		// Visit each neighbor
 		for (int neighbor : neighbors) {
 			if (!visited.contains(neighbor)) {
-				// If neighbor is not visited, continue DFS recursively
+				// If neighbor is not visited, continue DFS recursively (Tree edge)
 				dfs(neighbor, vertex, component);
 			} else if (neighbor != parentVertex && !hasCycle) {
-				// If neighbor is visited and is not the parent, a cycle is detected
+				// If neighbor is visited and is not the parent, a cycle is detected (Back edge)
 				hasCycle = true;
 				cycle = buildCycle(vertex, neighbor);
 			}
@@ -149,7 +147,7 @@ public class Graph {
 	}
 
 	/**************************************************************/
-	/* Constructor: buildCycle                                    */
+	/* Method: buildCycle                                         */
 	/* Purpose: Construct cycle path when back edge found         */
 	/* Parameters:                                                */
 	/*   int current: vertex that detected the back edge          */
@@ -212,7 +210,7 @@ public class Graph {
 
 		// Print cycle information
 		if (hasCycle && cycle != null) {
-			System.out.println("Cycle detected: ");
+			System.out.print("Cycle detected: ");
 			for (int i = 0; i < cycle.size(); i++) {
 				System.out.print(cycle.get(i));
 
@@ -224,5 +222,7 @@ public class Graph {
 		} else {
 			System.out.println("The graph is acyclic.");
 		}
+
+		System.out.println();
 	}
 }
