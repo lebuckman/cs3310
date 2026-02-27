@@ -168,8 +168,11 @@ public class Graph {
 			path.add(vertex);
 		}
 
+		// Reverse path to show cycle starting from backTo vertex
+		Collections.reverse(path);
+
 		// Add backTo again to close the cycle
-		path.add(current);
+		path.add(path.get(0));
 
 		return path;
 	}
