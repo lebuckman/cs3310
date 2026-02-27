@@ -19,12 +19,13 @@ public class Prog1 {
 	public static void main(String[] args) {
 		// Check if filename was provided
 		if (args.length != 1) {
-			System.out.println("Usage: java Prog1.java <filename>");
+			System.out.println("Usage: java prog1.Prog1 <filename>");
 			return;
 		}
 
 		String filename = args[0];
 
+		// Process the graphs from the input file
 		GraphFileReader reader = new GraphFileReader(filename);
 		reader.processGraphs();
 	}
