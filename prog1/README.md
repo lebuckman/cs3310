@@ -2,7 +2,7 @@
 
 ## Overview
 
-A Java-based implementation of **Depth First Search** to traverse a given undirected graph, identifying all connected components and detecting any cycles. [View project repository with commit history on GitHub]([https://](https://github.com/lebuckman/cs3310/tree/main/prog1)).
+A Java-based implementation of **Depth First Search** to traverse a given undirected graph, identifying all connected components and detecting any cycles. [View project repository with commit history on GitHub](https://github.com/lebuckman/cs3310/tree/main/prog1).
 
 **Author**: Liam Buckman | **BroncoName**: lebuckman | **BroncoID**: 016916341
 
