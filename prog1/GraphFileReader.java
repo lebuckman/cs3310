@@ -33,10 +33,8 @@ public class GraphFileReader {
 	/**************************************************************/
 	public void processGraphs() {
 		try {
-			// Create Scanner to read file
+			// Create Scanner to read file and track graph number for output
 			Scanner fileScanner = new Scanner(new File(filename));
-
-			// Track graph number for output formatting
 			int graphNumber = 1;
 
 			// Read file line by line
@@ -51,10 +49,8 @@ public class GraphFileReader {
 				// Parse line into Graph object
 				Graph graph = parseLine(line);
 
-				// Display graph number
+				// Display graph number and find components/cycles
 				System.out.println("Graph" + graphNumber + ":");
-
-				// Find components and cycles, then print results
 				graph.findComponentsAndCycles();
 
 				// Increment graph number for next graph
@@ -94,12 +90,9 @@ public class GraphFileReader {
 			// Parse vertex numbers and add edge to graph
 			int vertex1 = Integer.parseInt(vertices[0]);
 			int vertex2 = Integer.parseInt(vertices[1]);
-
-			// Add edge to graph
 			graph.addEdge(vertex1, vertex2);
 		}
 
 		return graph;
 	}
-
 }

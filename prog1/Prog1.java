@@ -25,6 +25,7 @@ public class Prog1 {
 
 		String filename = args[0];
 
+		// Process the graphs from the input file
 		GraphFileReader reader = new GraphFileReader(filename);
 		reader.processGraphs();
 	}

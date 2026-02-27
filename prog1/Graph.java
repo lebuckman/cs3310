@@ -17,21 +17,19 @@ import java.util.Set;
 /*              DFS-based methods                             */
 /**************************************************************/
 public class Graph {
-	// Number of vertices in the graph
+	// Number of vertices/edges in the graph
 	private int numVertices;
-
-	// Number of edges in the graph
 	private int numEdges;
 
 	// Adjacency list: maps vertex to list of adjacent vertices
 	private Map<Integer, List<Integer>> adjacencyList;
 
 	// Tracking DFS State:
-	private Set<Integer> visited; // Track visited vertices
+	private Set<Integer> visited;          // Track visited vertices
 	private List<Set<Integer>> components; // List of all connected components
-	private Map<Integer, Integer> parent; // Detect cycles via parent tracking
-	private boolean hasCycle; // Flag indicating cycled found
-	private List<Integer> cycle; // Track cycle path
+	private Map<Integer, Integer> parent;  // Detect cycles via parent tracking
+	private List<Integer> cycle;           // Track cycle path
+	private boolean hasCycle;              // Flag indicating cycle found
 
 	/**************************************************************/
 	/* Constructor: Graph                                         */
@@ -53,14 +51,15 @@ public class Graph {
 	/*   int vertex2: second vertex                               */
 	/**************************************************************/
 	public void addEdge(int vertex1, int vertex2) {
-		// Add vertex2 to vertex1's neighbor adjacency list
+		// Create adjacency list entries for both vertices if they don't exist
+		// Add vertex2 to vertex1's adjacency list if not already present
 		adjacencyList.putIfAbsent(vertex1, new ArrayList<>());
 		List<Integer> neighbors1 = adjacencyList.get(vertex1);
 		if (!neighbors1.contains(vertex2)) {
 			neighbors1.add(vertex2);
 		}
 
-		// Add vertex1 to vertex2's neighbor adjacency list (undirected graph)
+		// Since the graph is undirected, do the same for vertex2 as vertex1
 		adjacencyList.putIfAbsent(vertex2, new ArrayList<>());
 		List<Integer> neighbors2 = adjacencyList.get(vertex2);
 		if (!neighbors2.contains(vertex1)) {
@@ -136,10 +135,10 @@ public class Graph {
 		// Visit each neighbor
 		for (int neighbor : neighbors) {
 			if (!visited.contains(neighbor)) {
-				// If neighbor is not visited, continue DFS recursively (Tree edge)
+				// If neighbor not visited, continue DFS recursively (Tree edge)
 				dfs(neighbor, vertex, component);
 			} else if (neighbor != parentVertex && !hasCycle) {
-				// If neighbor is visited and is not the parent, a cycle is detected (Back edge)
+				// If a visited neighbor and not the parent, cycle detected (Back edge)
 				hasCycle = true;
 				cycle = buildCycle(vertex, neighbor);
 			}
@@ -189,7 +188,7 @@ public class Graph {
 			System.out.print(components.size() + " connected components: ");
 		}
 
-		// Print each component
+		// Print each connected component
 		for (Set<Integer> component : components) {
 			System.out.print("{");
 
@@ -211,7 +210,7 @@ public class Graph {
 
 		System.out.println();
 
-		// Print cycle information
+		// Print first cycle found if any, otherwise indicate acyclic
 		if (hasCycle && cycle != null) {
 			System.out.print("Cycle detected: ");
 			for (int i = 0; i < cycle.size(); i++) {
