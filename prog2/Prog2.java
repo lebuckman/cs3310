@@ -23,6 +23,9 @@ public class Prog2 {
 		}
 
 		String filename = args[0];
-		System.out.println("Filename: " + filename);
+
+		// Create an AnagramFinder and process the file
+		AnagramFinder finder = new AnagramFinder();
+		finder.processFile(filename);
 	}
 }
