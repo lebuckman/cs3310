@@ -80,8 +80,11 @@ public class AnagramFinder {
 		// Use lowercase for case-insensitivity
 		String lowercase = word.toLowerCase();
 
-		// Convert to character array and sort letters
-		char[] letters = lowercase.toCharArray();
+		// Remove non-letter characters
+		String lettersOnly = lowercase.replaceAll("[^a-z]", "");
+
+		// Sort letters alphabetically
+		char[] letters = lettersOnly.toCharArray();
 		Arrays.sort(letters);
 
 		// Return sorted letters as a string
