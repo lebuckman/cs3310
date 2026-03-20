@@ -14,6 +14,9 @@ From the **parent directory** of `prog2/`, compile and execute the code:
 javac prog2/*.java
 
 java prog1.Prog2 prog2/words.txt
+
+# Save output to a file
+java prog1.Prog2 prog2/words.txt > output.txt
 ```
 
 > [!Note]
