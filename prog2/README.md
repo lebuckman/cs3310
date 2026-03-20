@@ -1,12 +1,12 @@
 # Prog2: Anagrams
 
-## Overview
+## 📖 Overview
 
 An **anagram** is a word or phrase that is created by rearranging the letters of another word or phrase. For example, the words "eat", "ate", and "tea" are anagrams of one another.
 
 This program finds all sets of anagrams in a text file using a **presorting algorithm** (Transform-and-Conquer) that sorts "letter signatures" to group anagrams in optimal time.
 
-## Getting Started
+## ⚡ Getting Started
 
 From the **parent directory** of `prog2/`, compile and execute the code:
 
@@ -23,7 +23,7 @@ java prog1.Prog2 prog2/words.txt > output.txt
 > This project was built and tested using OpenJDK version "21.0.1" 2023-10-17 LTS.
 > Compatible with Java 8+
 
-## Expected Input / Output
+## 📋 Expected Input / Output
 
 ### Input Format
 
@@ -53,7 +53,7 @@ Set 1 (3 words): ate, eat, tea
 Set 2 (2 words): Elvis, lives
 ```
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 prog2/
@@ -63,9 +63,9 @@ prog2/
 └── words.txt               # Large dictionary (99,000+ words)
 ```
 
-## Presorting Algorithm
+## 🔤 Presorting Algorithm
 
-### Approach
+### 🎯 Approach
 
 **Transform**: Convert each word into a sorted-letter signature
 
@@ -88,7 +88,7 @@ Output:
   Set 1 (3 words): ate, eat, tea
 ```
 
-### Time Complexity: Θ(n × m log m)
+### ⏳ Time Complexity: Θ(n × m log m)
 
 The algorithm processes each of the n words exactly once.
 
