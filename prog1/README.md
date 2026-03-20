@@ -2,12 +2,9 @@
 
 ## Overview
 
-A Java-based implementation of **Depth First Search** to traverse a given undirected graph, identifying all connected components and detecting any cycles. [View project repository with commit history on GitHub](https://github.com/lebuckman/cs3310/tree/main/prog1).
+**Depth First Search** (**DFS**) is a tree/graph traversal algorithm that explores as far as possible down each branch before backtracking.
 
-**Author**: Liam Buckman | **BroncoName**: lebuckman | **BroncoID**: lebuckman
-
-**Course**: Spring 2026 CS3310.01
-
+Given undirected graph data via a text file, this program identifies all connected components and detects any cycles.
 
 ## Getting Started
 
@@ -19,8 +16,9 @@ javac prog1/*.java
 java prog1.Prog1 prog1/test.txt
 ```
 
-> _This project was built and tested using OpenJDK version "21.0.1" 2023-10-17 LTS._
-> _Compatible with Java 8+_
+> [!Note]
+> This project was built and tested using OpenJDK version "21.0.1" 2023-10-17 LTS.
+> Compatible with Java 8+
 
 ## Expected Input / Output
 
