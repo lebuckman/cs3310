@@ -1,12 +1,12 @@
 # Prog1: DFS Traversal on Undirected Graphs
 
-## Overview
+## 📖 Overview
 
 **Depth First Search** (**DFS**) is a tree/graph traversal algorithm that explores as far as possible down each branch before backtracking.
 
 Given undirected graph data via a text file, this program identifies all connected components and detects any cycles.
 
-## Getting Started
+## ⚡ Getting Started
 
 From the **parent directory** of `prog1/`, compile and execute the code:
 
@@ -20,7 +20,7 @@ java prog1.Prog1 prog1/test.txt
 > This project was built and tested using OpenJDK version "21.0.1" 2023-10-17 LTS.
 > Compatible with Java 8+
 
-## Expected Input / Output
+## 📋 Expected Input / Output
 
 ### Input Format
 
@@ -57,7 +57,7 @@ Graph2:
 The graph is acyclic.
 ```
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 prog1/
@@ -67,9 +67,9 @@ prog1/
 └── test.txt                # Test cases (3+ graphs / 7+ nodes each)
 ```
 
-## Depth-First Search (DFS) Algorithm
+## 🔬 Depth-First Search (DFS) Algorithm
 
-### Approach
+### 🎯 Approach
 
 **Explore**: Recursively visit all reachable vertices from a starting vertex
 
@@ -97,7 +97,7 @@ Output:
   Cycle detected: 1 - 2 - 3 - 4 - 1
 ```
 
-### Time Complexity: Θ(|V| + |E|)
+### ⏳ Time Complexity: Θ(|V| + |E|)
 
 The algorithm visits each vertex once and examines each edge twice (once from each endpoint).
 
