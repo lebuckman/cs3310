@@ -2,6 +2,8 @@ package prog2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,8 +49,14 @@ public class AnagramFinder {
 					continue;
 				}
 
-				// Testing output
-				System.out.println("Word read: " + word);
+				// Get signature of word (sorted letters)
+				String signature = getSignature(word);
+
+				System.out.println("word: " + word + " -> " + signature); // Test
+
+				// Add word to the appropriate anagram group
+				anagramGroups.putIfAbsent(signature, new ArrayList<>());
+				anagramGroups.get(signature).add(word);
 			}
 
 			scanner.close();
@@ -57,5 +65,24 @@ public class AnagramFinder {
 			// Handle case where file is not found
 			System.out.println("FileNotFoundException: " + e.getMessage());
 		}
+	}
+
+	/**************************************************************/
+	/* Method: getSignature                                       */
+	/* Purpose: Create a sorted-letter signature for a word       */
+	/* Parameters:                                                */
+	/*   String word: the original word                           */
+	/* Returns: String - lowercase letters sorted alphabetically  */
+	/**************************************************************/
+	private String getSignature(String word) {
+		// Use lowercase for case-insensitivity
+		String lowercase = word.toLowerCase();
+
+		// Convert to character array and sort letters
+		char[] letters = lowercase.toCharArray();
+		Arrays.sort(letters);
+
+		// Return sorted letters as a string
+		return new String(letters);
 	}
 }
