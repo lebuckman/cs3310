@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 /**************************************************************/
 /* Liam Buckman                                               */
@@ -19,8 +21,8 @@ import java.util.Scanner;
 /*                      words using presorting                */
 /**************************************************************/
 public class AnagramFinder {
-	// Map words by their sorted letter signature
-	private Map<String, List<String>> anagramGroups;
+	// Group words by their sorted-letter signature without duplicates
+	private Map<String, Set<String>> anagramGroups;
 
 	/**************************************************************/
 	/* Constructor: AnagramFinder                                 */
@@ -38,7 +40,7 @@ public class AnagramFinder {
 	/**************************************************************/
 	public void processFile(String filename) {
 		try {
-			// Create Scanner to read file 
+			// Create Scanner to read file
 			Scanner scanner = new Scanner(new File(filename));
 
 			// Read file line by line
@@ -53,8 +55,8 @@ public class AnagramFinder {
 				// Get signature of word (sorted letters)
 				String signature = getSignature(word);
 
-				// Add word to the appropriate anagram group
-				anagramGroups.putIfAbsent(signature, new ArrayList<>());
+				// Add word to the appropriate anagram set
+				anagramGroups.putIfAbsent(signature, new HashSet<>());
 				anagramGroups.get(signature).add(word);
 			}
 
@@ -102,12 +104,13 @@ public class AnagramFinder {
 		int setNumber = 1;
 
 		// Iterate through all groups in the HashMap
-		for (Map.Entry<String, List<String>> entry : anagramGroups.entrySet()) {
-			List<String> words = entry.getValue();
+		for (Map.Entry<String, Set<String>> entry : anagramGroups.entrySet()) {
+			Set<String> wordSet = entry.getValue();
 
-			// Don't print sets with only one word (not anagrams)
-			if (words.size() >= 2) {
-				// Sort words alphabetically within the set
+			// Only print sets with 2 or more words (valid anagram sets)
+			if (wordSet.size() >= 2) {
+				// Convert set to list and sort alphabetically for display
+				List<String> words = new ArrayList<>(wordSet);
 				Collections.sort(words);
 
 				// Print set with word count
@@ -126,11 +129,11 @@ public class AnagramFinder {
 			}
 		}
 
-		System.out.println();
-
 		// If no anagram sets found
 		if (setNumber == 1) {
 			System.out.println("No anagram sets found.");
 		}
+
+		System.out.println();
 	}
 }
