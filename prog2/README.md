@@ -88,7 +88,7 @@ Output:
   Set 1 (3 words): ate, eat, tea
 ```
 
-### Time Complexity: **Θ(n × m log m)**
+### Time Complexity: Θ(n × m log m)
 
 The algorithm processes each of the n words exactly once.
 
