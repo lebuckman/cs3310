@@ -2,6 +2,7 @@ package prog2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -82,8 +83,13 @@ public class AnagramFinder {
 		// Use lowercase for case-insensitivity
 		String lowercase = word.toLowerCase();
 
-		// Remove non-letter characters
-		String lettersOnly = lowercase.replaceAll("[^a-z]", "");
+		// Decompose accented characters
+		String normalized = Normalizer.normalize(lowercase, Normalizer.Form.NFD);
+
+		// Remove accent marks and non-letter characters
+		String lettersOnly = normalized
+				.replaceAll("\\p{M}", "")
+				.replaceAll("[^a-z]", "");
 
 		// Sort letters alphabetically
 		char[] letters = lettersOnly.toCharArray();
