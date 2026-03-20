@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,14 +53,15 @@ public class AnagramFinder {
 				// Get signature of word (sorted letters)
 				String signature = getSignature(word);
 
-				System.out.println("word: " + word + " -> " + signature); // Test
-
 				// Add word to the appropriate anagram group
 				anagramGroups.putIfAbsent(signature, new ArrayList<>());
 				anagramGroups.get(signature).add(word);
 			}
 
 			scanner.close();
+
+			// Print anagram sets
+			printAnagrams();
 
 		} catch (FileNotFoundException e) {
 			// Handle case where file is not found
@@ -84,5 +86,48 @@ public class AnagramFinder {
 
 		// Return sorted letters as a string
 		return new String(letters);
+	}
+
+	/**************************************************************/
+	/* Method: printAnagrams                                      */
+	/* Purpose: Print all anagram groups found                    */
+	/**************************************************************/
+	private void printAnagrams() {
+		System.out.println("\nAnagram Sets Found:\n");
+
+		// Counter for numbering sets
+		int setNumber = 1;
+
+		// Iterate through all groups in the HashMap
+		for (Map.Entry<String, List<String>> entry : anagramGroups.entrySet()) {
+			List<String> words = entry.getValue();
+
+			// Don't print sets with only one word (not anagrams)
+			if (words.size() >= 2) {
+				// Sort words alphabetically within the set
+				Collections.sort(words);
+
+				// Print set with word count
+				System.out.print("Set " + setNumber + " (" + words.size() + " words): ");
+
+				// Print all words in this anagram set
+				for (int i = 0; i < words.size(); i++) {
+					System.out.print(words.get(i));
+					if (i < words.size() - 1) {
+						System.out.print(", ");
+					}
+				}
+
+				System.out.println();
+				setNumber++;
+			}
+		}
+
+		System.out.println();
+
+		// If no anagram sets found
+		if (setNumber == 1) {
+			System.out.println("No anagram sets found.");
+		}
 	}
 }
