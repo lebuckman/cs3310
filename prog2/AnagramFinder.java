@@ -56,9 +56,12 @@ public class AnagramFinder {
 				// Get signature of word (sorted letters)
 				String signature = getSignature(word);
 
+				// Parse word to lowercase and remove non-letter characters for storage
+				String parsedWord = word.toLowerCase().replaceAll("[^a-z]", "");
+
 				// Add word to the appropriate anagram set
 				anagramGroups.putIfAbsent(signature, new HashSet<>());
-				anagramGroups.get(signature).add(word);
+				anagramGroups.get(signature).add(parsedWord);
 			}
 
 			scanner.close();
