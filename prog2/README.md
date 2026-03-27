@@ -34,23 +34,29 @@ When executing, the program expects one command-line argument: the path to an in
 Project assumes properly-formatted input. Output reports detected anagram sets. While words within each set are alphabetically sorted, the sets themselves are not sorted.
 
 - Case-insensitive (`Elvis` == `elvis`)
-- Punctuation ignored (`it's` == `its`)
-- Accented characters are normalized (`éclair` == `eclair`)
-- Duplicate words automatically filtered out
+- Punctuation removed (`chair's` → `chairs`)
+- Accented characters treated as distinct letters (`éclair` != `eclair`)
+- Duplicate words (after parsing) filtered out
 
 ```
 eat
 tea
 ate
+elvis
 Elvis
 lives
+chair's
+chairs
+éclair
+Claire
 ```
 
 ```
 Anagram Sets Found:
 
 Set 1 (3 words): ate, eat, tea
-Set 2 (2 words): Elvis, lives
+Set 2 (2 words): elvis, lives
+
 ```
 
 ## 📂 Project Structure
@@ -60,7 +66,7 @@ prog2/
 ├── Prog2.java              # Main driver class
 ├── AnagramFinder.java      # Core algorithm
 ├── test.txt                # Various test cases (90+ words)
-└── words.txt               # Large dictionary (99,000+ words)
+└── words.txt               # Large data set (99,000+ words)
 ```
 
 ## 🔤 Presorting Algorithm
@@ -72,17 +78,22 @@ prog2/
 **Conquer**: Group words with identical signatures with HashMap
 
 ```
-Input: "eat", "tea", "ate", "hello"
+Input: "eat", "tea", "ate", "Claire", "éclair"
 
 Transform:
-  "eat"   → lowercase → "eat"   → sort letters → "aet"
-  "tea"   → lowercase → "tea"   → sort letters → "aet"
-  "ate"   → lowercase → "ate"   → sort letters → "aet"
-  "hello" → lowercase → "hello" → sort letters → "ehllo"
+  "eat"     → parse  → "eat"     → sort  → "aet"
+  "tea"     → parse  → "tea"     → sort  → "aet"
+  "ate"     → parse  → "ate"     → sort  → "aet"
+  "Claire"  → parse  → "claire"  → sort  → "aceilr"
+  "éclair"  → parse  → "éclair"  → sort  → "acilré"
+  "chair's" → parse  → "chairs"  → sort  → "achirs"
+  "chairs"  → parse  → "chairs"  → sort  → "achirs"
 
 HashMap:
-  "aet"   → ["eat", "tea", "ate"]  ← Anagram set!
-  "ehllo" → ["hello"]              ← Single word, skip
+  "aet"     → {"eat", "tea", "ate"}  ← Anagram set (3 words)
+  "aceilr"  → {"claire"}             ← Single word, skip
+  "acilré"  → {"éclair"}             ← Single word, skip
+  "achirs"  → {"chairs"}             ← Single word, skip
 
 Output:
   Set 1 (3 words): ate, eat, tea
@@ -90,21 +101,15 @@ Output:
 
 ### ⏳ Time Complexity: Θ(n × m log m)
 
-The algorithm processes each of the n words exactly once.
+Let **n** = number of words in the input file and **m** = maximum word length.
 
-For each word:
+The algorithm processes each of the n words exactly once. For each word:
 
-1. toLowerCase(): O(m)
-2. replaceAll(): O(m)
-3. toCharArray(): O(m)
-4. Arrays.sort(): O(m log m)
-5. new String: O(m)
-6. HashMap put/get operations: ~ O(1)
+1. `toLowerCase()`: O(m) — convert to lowercase
+2. `replaceAll()`: O(m) — remove non-letter characters
+3. `toCharArray()`: O(m) — convert to character array
+4. `Arrays.sort()`: O(m log m) — sort array (**dominant operation**)
+5. `new String()`: O(m) — convert array to String
+6. HashMap `put`/`get`: ~ O(1) — store/retrieve word sets
 
-The sorting step dominates: O(m log m)
-
-**TOTAL TIME FOR n WORDS:**
-
-For each of n words, we perform O(m log m) work.
-
-Therefore, the worst-case time complexity is Θ(n × m log m).
+**Total:** Processing n words at O(m log m) each gives **Θ(n × m log m)**.
