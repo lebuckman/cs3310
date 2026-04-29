@@ -40,6 +40,7 @@ public class Prog3 {
 
 		// Solve for optimal costs with DP
 		CanoeSolver solver = new CanoeSolver(costMatrix, numPosts);
+		solver.solve();
 	}
 
 	/**************************************************************/
@@ -53,7 +54,7 @@ public class Prog3 {
 		try {
 			Scanner scanner = new Scanner(new File(filePath));
 
-			// Read the number of trading posts
+			// Read the number of trading posts and initialize the cost matrix
 			int numPosts = scanner.nextInt();
 			int[][] costMatrix = new int[numPosts][numPosts];
 
