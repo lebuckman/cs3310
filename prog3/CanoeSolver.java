@@ -85,4 +85,41 @@ public class CanoeSolver {
 			return opt[i][j];
 		}
 
+		/**************************************************************/
+    /* Method: printOptimalCosts                                  */
+    /* Purpose: Prints the optimal cost matrix for all valid post */
+    /*          pairs (i, j) where i < j.                         */
+    /**************************************************************/
+		public void printOptimalCosts() {
+			/* Print each valid pair (i, j) where i < j on its own line */
+			for (int i = 0; i < numPosts - 1; i++) {
+				for (int j = i + 1; j < numPosts; j++) {
+					System.out.println("  posts " + i + " to " + j
+							+ ": " + opt[i][j]);
+				}
+			}
+		}
+
+    /**************************************************************/
+    /* Method: printRentalSequence                                */
+    /* Purpose: Reconstructs and prints the optimal sequence of   */
+    /*          canoe rentals from post i to post j using the     */
+    /*          next[][] path table.                              */
+    /* Parameters:                                                */
+    /*   int i: starting post index                               */
+    /*   int j: ending post index                                 */
+    /**************************************************************/
+		public void printRentalSequence(int i, int j) {
+			// If the next stop is -1, print the direct rental and return
+			if (next[i][j] == -1) {
+				System.out.println("  rent from post " + i + " to post " + j
+						+ "  (cost: " + directCost[i][j] + ")");
+				return;
+			}
+
+			// Get the intermediate stop k from the next[][] table
+			int k = next[i][j];
+			printRentalSequence(i, k);
+			printRentalSequence(k, j);
+		}
 }
