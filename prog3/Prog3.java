@@ -21,7 +21,6 @@ public class Prog3 {
 	/*   String[] args: command line arguments (expects filename) */
 	/**************************************************************/
 	public static void main(String[] args) {
-
 		// Check if filename was provided
 		if (args.length != 1) {
 			System.out.println("Usage: java prog3.Prog3 <filename>");
@@ -40,7 +39,7 @@ public class Prog3 {
 
 		// Solve for optimal costs with DP
 		CanoeSolver solver = new CanoeSolver(costMatrix, numPosts);
-		solver.solve();
+		solver.computeOptimalCosts();
 
 		// Print the optimal cost matrix for all post pairs (i, j)
 		System.out.println("Optimal cost matrix:");
@@ -54,7 +53,6 @@ public class Prog3 {
 		// Print the total optimal cost for the full trip
 		System.out.println("\nTotal optimal cost: "
 				+ solver.getOptimalCost(0, numPosts - 1));
-
 	}
 
 	/**************************************************************/
