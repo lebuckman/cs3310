@@ -91,12 +91,30 @@ public class CanoeSolver {
     /*          pairs (i, j) where i < j.                         */
     /**************************************************************/
 		public void printOptimalCosts() {
-			/* Print each valid pair (i, j) where i < j on its own line */
-			for (int i = 0; i < numPosts - 1; i++) {
-				for (int j = i + 1; j < numPosts; j++) {
-					System.out.println("  posts " + i + " to " + j
-							+ ": " + opt[i][j]);
+			// Print column headers
+			System.out.print("      ");
+			for (int j = 0; j < numPosts; j++) {
+				System.out.printf("%6d", j);
+			}
+			System.out.println();
+
+			// Print divider under column headers
+			System.out.print("      ");
+			System.out.println("-".repeat(6 * numPosts));
+
+			// Print each row with row label and left border
+			for (int i = 0; i < numPosts; i++) {
+				System.out.printf("%4d |", i);
+				for (int j = 0; j < numPosts; j++) {
+					if (j <= i) {
+						// Lower triangle and diagonal ignored
+						System.out.printf("%6s", "--");
+					} else {
+						// Upper triangle prints optimal cost
+						System.out.printf("%6d", opt[i][j]);
+					}
 				}
+				System.out.println();
 			}
 		}
 
