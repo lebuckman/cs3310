@@ -15,6 +15,7 @@ A personal repo for coursework that implements and analyzes fundamental algorith
 class_repo/
 ├── 💻 prog1/              # Cycle Detection w/ DFS
 ├── 💻 prog2/              # Anagram Detection w/ Presorting
+├── 💻 prog3/              # Canoe Trip Cost Optimizer w/ DP
 └── 📄 STYLE_GUIDE.pdf     # Class Coding Style Requirements
 ```
 
@@ -27,11 +28,18 @@ Each programming assignment is self-contained in its own directory with document
 Analyzes undirected graphs to identify connected components and detect cycles using DFS.
 
 - **Key Concepts:** Graph theory, DFS traversal, component analysis, tree vs. back edges
-- **Time Complexity**: O(|V| + |E|)
+- **Time Complexity**: Θ(|V| + |E|)
 
 ### 💻 [Prog2: Anagram Finder](./prog2/)
 
 Finds all anagram sets in large word files using a presorting technique.
 
 - **Key Concepts:** Transform-and-conquer, presorting, hash tables, algorithmic efficiency
-- **Time Complexity**: O(n × m log m)
+- **Time Complexity**: Θ(n × m log m)
+
+### 💻 [Prog3: Canoe Trip Cost Optimizer](./prog3/)
+
+Finds the minimum cost sequence of canoe rentals across a series of trading posts using dynamic programming.
+
+- **Key Concepts:** Dynamic programming, all-pairs optimization, path reconstruction
+- **Time Complexity**: Θ(n³)
