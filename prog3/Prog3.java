@@ -41,6 +41,20 @@ public class Prog3 {
 		// Solve for optimal costs with DP
 		CanoeSolver solver = new CanoeSolver(costMatrix, numPosts);
 		solver.solve();
+
+		// Print the optimal cost matrix for all post pairs (i, j)
+		System.out.println("Optimal cost matrix:");
+		solver.printOptimalCosts();
+
+		// Print the optimal rental sequence from post 0 to post n-1
+		System.out.println("\nOptimal rental sequence (post 0 to post "
+				+ (numPosts - 1) + "):");
+		solver.printRentalSequence(0, numPosts - 1);
+
+		// Print the total optimal cost for the full trip
+		System.out.println("\nTotal optimal cost: "
+				+ solver.getOptimalCost(0, numPosts - 1));
+
 	}
 
 	/**************************************************************/
